@@ -3,6 +3,6 @@ import io.kotest.matchers.shouldBe
 
 class KataMarsRoverTest: FreeSpec({
     "it should verify rover init creation" {
-        kataMarsRover() shouldBe Rover(Point(0, 0), Direction.North)
+        kataMarsRover(arrayOf(Command.Forward)) shouldBe Rover(Point(0, 1), Direction.North)
     }
 })
