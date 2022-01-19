@@ -1,5 +1,5 @@
 fun main() {
-    kataMarsRover(listOf(Command.Forward))
+    kataMarsRover(commands = listOf(Command.Forward))
 }
 
 data class Point(val x: Int, val y: Int)
@@ -7,13 +7,11 @@ enum class Direction { North, South, East, West }
 data class Rover(val point: Point, val direction: Direction)
 enum class Command { Forward, Backward, Left, Right }
 
-fun kataMarsRover(commands: List<Command>): Rover {
-    var rover = Rover(Point(0, 0), Direction.North)
-    for (command in commands) {
-        rover = rover.sendCommand(command)
-    }
-    return rover
-}
+fun kataMarsRover(
+    rover: Rover = Rover(Point(0, 0), Direction.North),
+    commands: List<Command>
+): Rover = commands.fold(rover) { acc: Rover, command: Command -> acc.sendCommand(command) }
+
 
 fun Rover.sendCommand(command: Command): Rover =
     when (command) {

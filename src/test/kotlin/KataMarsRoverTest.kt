@@ -2,6 +2,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
 data class TestData(
+    val rover: Rover = Rover(Point(0,0), Direction.North),
     val description: String,
     val commands: List<Command>,
     val expected: Rover
@@ -30,9 +31,9 @@ class KataMarsRoverTest : FreeSpec({
                 commands = listOf(Command.Backward),
                 expected = Rover(Point(0, -1), Direction.North)
             )
-        ).forEach { (description, commands, expected) ->
+        ).forEach { (rover, description, commands, expected) ->
             "It should $description" {
-                kataMarsRover(commands) shouldBe expected
+                kataMarsRover(rover, commands) shouldBe expected
             }
         }
     }
