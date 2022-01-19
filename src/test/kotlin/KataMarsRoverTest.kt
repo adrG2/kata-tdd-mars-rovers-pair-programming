@@ -9,7 +9,7 @@ data class TestData(
 )
 
 class KataMarsRoverTest : FreeSpec({
-    "Given a Rover at Position 0,0" - {
+    "Move the skeleton" - {
         listOf(
             TestData(
                 description = "increment Y axis when move Forward facing North",
@@ -22,8 +22,9 @@ class KataMarsRoverTest : FreeSpec({
                 expected = Rover(Point(0, 2), Direction.North)
             ),
             TestData(
+                rover = Rover(Point(0,0), Direction.South),
                 description = "decrement Y axis when move Forward facing South",
-                commands = listOf(Command.Left, Command.Left, Command.Forward),
+                commands = listOf(Command.Forward),
                 expected = Rover(Point(0, -1), Direction.South)
             ),
             TestData(
@@ -32,7 +33,7 @@ class KataMarsRoverTest : FreeSpec({
                 expected = Rover(Point(0, -1), Direction.North)
             )
         ).forEach { (rover, description, commands, expected) ->
-            "It should $description" {
+            "at Position ${rover.point} should $description" {
                 kataMarsRover(rover, commands) shouldBe expected
             }
         }
