@@ -19,7 +19,7 @@ fun Rover.sendCommand(command: Command): Rover =
             Direction.North -> copy(point = point.copy(y = point.y + 1))
             Direction.South -> copy(point = point.copy(y = point.y - 1))
             Direction.East  -> copy(point = point.copy(x = point.x + 1))
-            Direction.West -> this
+            Direction.West  -> copy(point = point.copy(x = point.x - 1))
         }
         Command.Backward -> when (direction) {
             Direction.North -> copy(point = point.copy(y = point.y - 1))
