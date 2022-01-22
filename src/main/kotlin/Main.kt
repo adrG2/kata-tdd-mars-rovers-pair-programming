@@ -29,8 +29,8 @@ fun Rover.sendCommand(command: Command): Rover =
         }
         Command.TurnLeft -> when (direction) {
             Direction.North -> copy(direction = Direction.West)
-            Direction.South -> this
-            Direction.East -> this
+            Direction.South -> copy(direction = Direction.East)
+            Direction.East -> copy(direction = Direction.North)
             Direction.West -> copy(direction = Direction.South)
         }
         Command.TurnRight -> when (direction) {
