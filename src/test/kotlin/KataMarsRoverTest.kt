@@ -51,7 +51,7 @@ class KataMarsRoverTest : FreeSpec({
             ),
             TestData(
                 rover = Rover(Point(0,0), Direction.South),
-                description = "decrement Y axis by 2 when move Backward facing South",
+                description = "increment Y axis when move Backward facing South",
                 commands = listOf(Command.Backward),
                 expected = Rover(Point(0, 1), Direction.South)
             ),
