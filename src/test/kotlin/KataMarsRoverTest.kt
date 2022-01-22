@@ -3,17 +3,17 @@ import io.kotest.matchers.shouldBe
 
 data class TestData(
     val rover: Rover,
-    val description: String,
+    val description: String? = null,
     val commands: List<Command>,
     val expected: Rover
 )
 
 class KataMarsRoverTest : FreeSpec({
 
-    val roverAtZeroZeroNorth = Rover(Point(0,0), Direction.North)
-    val roverAtZeroZeroSouth = Rover(Point(0,0), Direction.South)
-    val roverAtZeroZeroEast = Rover(Point(0,0), Direction.East)
-    val roverAtZeroZeroWest = Rover(Point(0,0), Direction.West)
+    val roverAtZeroZeroNorth = Rover(Point(0, 0), Direction.North)
+    val roverAtZeroZeroSouth = Rover(Point(0, 0), Direction.South)
+    val roverAtZeroZeroEast = Rover(Point(0, 0), Direction.East)
+    val roverAtZeroZeroWest = Rover(Point(0, 0), Direction.West)
 
     "Move the skeleton" - {
         listOf(
@@ -42,7 +42,7 @@ class KataMarsRoverTest : FreeSpec({
                 expected = Rover(Point(1, 0), Direction.East)
             ),
             TestData(
-                rover = Rover(Point(0,0), Direction.West),
+                rover = roverAtZeroZeroWest,
                 description = "increment X axis when move Forward facing West",
                 commands = listOf(Command.Forward),
                 expected = Rover(Point(-1, 0), Direction.West)
@@ -79,6 +79,24 @@ class KataMarsRoverTest : FreeSpec({
             ),
         ).forEach { (rover, description, commands, expected) ->
             "at Position ${rover.point} should $description" {
+                kataMarsRover(rover, commands) shouldBe expected
+            }
+        }
+    }
+
+    "Turn the skeleton" - {
+        listOf(
+            TestData(
+                rover = Rover(Point(0, 0), Direction.North),
+                commands = listOf(Command.Left),
+                expected = Rover(Point(0, 0), Direction.West)
+            ),
+        ).forEach { (rover, _, commands, expected) ->
+            """
+                given facing ${rover.direction} 
+                when $commands
+                then make the rover face ${expected.direction}
+            """ {
                 kataMarsRover(rover, commands) shouldBe expected
             }
         }
