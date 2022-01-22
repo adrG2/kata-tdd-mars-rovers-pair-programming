@@ -10,7 +10,7 @@ enum class Command { Forward, Backward, Left, Right }
 fun kataMarsRover(
     rover: Rover = Rover(Point(0, 0), Direction.North),
     commands: List<Command>
-): Rover = commands.fold(rover) { acc: Rover, command: Command -> acc.sendCommand(command) }
+): Rover = commands.fold(rover, Rover::sendCommand)
 
 
 fun Rover.sendCommand(command: Command): Rover =
@@ -18,7 +18,7 @@ fun Rover.sendCommand(command: Command): Rover =
         Command.Forward -> when (direction) {
             Direction.North -> copy(point = point.copy(y = point.y + 1))
             Direction.South -> copy(point = point.copy(y = point.y - 1))
-            Direction.East -> this
+            Direction.East  -> copy(point = point.copy(x = point.x + 1))
             Direction.West -> this
         }
         Command.Backward -> when (direction) {

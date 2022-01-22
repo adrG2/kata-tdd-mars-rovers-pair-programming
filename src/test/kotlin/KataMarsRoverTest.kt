@@ -37,6 +37,12 @@ class KataMarsRoverTest : FreeSpec({
                 commands = listOf(Command.Forward),
                 expected = Rover(Point(0, -1), Direction.South)
             ),
+            TestData(
+                rover = Rover(Point(0,0), Direction.East),
+                description = "increment X axis when move Forward facing East",
+                commands = listOf(Command.Forward),
+                expected = Rover(Point(1, 0), Direction.East)
+            ),
         ).forEach { (rover, description, commands, expected) ->
             "at Position ${rover.point} should $description" {
                 kataMarsRover(rover, commands) shouldBe expected
