@@ -22,16 +22,6 @@ class KataMarsRoverTest : FreeSpec({
                 expected = Rover(Point(0, 2), Direction.North)
             ),
             TestData(
-                description = "decrement Y axis when move Backward facing North",
-                commands = listOf(Command.Backward),
-                expected = Rover(Point(0, -1), Direction.North)
-            ),
-            TestData(
-                description = "decrement Y axis by 2 when move Backward facing North",
-                commands = listOf(Command.Backward, Command.Backward),
-                expected = Rover(Point(0, -2), Direction.North)
-            ),
-            TestData(
                 rover = Rover(Point(0,0), Direction.South),
                 description = "decrement Y axis when move Forward facing South",
                 commands = listOf(Command.Forward),
@@ -48,6 +38,22 @@ class KataMarsRoverTest : FreeSpec({
                 description = "increment X axis when move Forward facing West",
                 commands = listOf(Command.Forward),
                 expected = Rover(Point(-1, 0), Direction.West)
+            ),
+            TestData(
+                description = "decrement Y axis when move Backward facing North",
+                commands = listOf(Command.Backward),
+                expected = Rover(Point(0, -1), Direction.North)
+            ),
+            TestData(
+                description = "decrement Y axis by 2 when move Backward facing North",
+                commands = listOf(Command.Backward, Command.Backward),
+                expected = Rover(Point(0, -2), Direction.North)
+            ),
+            TestData(
+                rover = Rover(Point(0,0), Direction.South),
+                description = "decrement Y axis by 2 when move Backward facing South",
+                commands = listOf(Command.Backward),
+                expected = Rover(Point(0, 1), Direction.South)
             ),
         ).forEach { (rover, description, commands, expected) ->
             "at Position ${rover.point} should $description" {
