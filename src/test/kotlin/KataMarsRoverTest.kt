@@ -100,7 +100,26 @@ class KataMarsRoverTest : FreeSpec({
                 commands = listOf(Command.TurnLeft),
                 expected = Rover(Point(0, 0), Direction.South)
             ),
-            // right
+            TestData(
+                rover = Rover(Point(0, 0), Direction.North),
+                commands = listOf(Command.TurnRight),
+                expected = Rover(Point(0, 0), Direction.East)
+            ),
+            TestData(
+                rover = Rover(Point(0, 0), Direction.South),
+                commands = listOf(Command.TurnRight),
+                expected = Rover(Point(0, 0), Direction.West)
+            ),
+            TestData(
+                rover = Rover(Point(0, 0), Direction.East),
+                commands = listOf(Command.TurnRight),
+                expected = Rover(Point(0, 0), Direction.South)
+            ),
+            TestData(
+                rover = Rover(Point(0, 0), Direction.West),
+                commands = listOf(Command.TurnRight),
+                expected = Rover(Point(0, 0), Direction.North)
+            ),
         ).forEach { (rover, _, commands, expected) ->
             """
                 given a Rover facing ${rover.direction} 
