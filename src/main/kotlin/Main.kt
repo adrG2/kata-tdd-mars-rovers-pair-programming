@@ -1,11 +1,11 @@
 fun main() {
-    kataMarsRover(commands = listOf(Command.Forward))
+    kataMarsRover(commands = listOf(Command.MoveForward))
 }
 
 data class Point(val x: Int, val y: Int)
 enum class Direction { North, South, East, West }
 data class Rover(val point: Point, val direction: Direction)
-enum class Command { Forward, Backward, Left, Right }
+enum class Command { MoveForward, MoveBackward, TurnLeft, TurnRight }
 
 fun kataMarsRover(
     rover: Rover = Rover(Point(0, 0), Direction.North),
@@ -15,25 +15,25 @@ fun kataMarsRover(
 
 fun Rover.sendCommand(command: Command): Rover =
     when (command) {
-        Command.Forward -> when (direction) {
+        Command.MoveForward -> when (direction) {
             Direction.North -> copy(point = point.copy(y = point.y + 1))
             Direction.South -> copy(point = point.copy(y = point.y - 1))
             Direction.East  -> copy(point = point.copy(x = point.x + 1))
             Direction.West  -> copy(point = point.copy(x = point.x - 1))
         }
-        Command.Backward -> when (direction) {
+        Command.MoveBackward -> when (direction) {
             Direction.North -> copy(point = point.copy(y = point.y - 1))
             Direction.South -> copy(point = point.copy(y = point.y + 1))
             Direction.East  -> copy(point = point.copy(x = point.x - 1))
             Direction.West  -> copy(point = point.copy(x = point.x + 1))
         }
-        Command.Left -> when (direction) {
+        Command.TurnLeft -> when (direction) {
             Direction.North -> copy(direction = Direction.West)
             Direction.South -> this
             Direction.East -> this
             Direction.West -> copy(direction = Direction.South)
         }
-        Command.Right -> when (direction) {
+        Command.TurnRight -> when (direction) {
             Direction.North -> this
             Direction.South -> this
             Direction.East -> this
